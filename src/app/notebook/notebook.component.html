@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul class="collumBox">
+        <li class="contentBox" *ngFor="let note of notes">
+            <p>{{note.text}}</p>
+            <div *ngIf="note.noteArr.length">
+                <div *ngFor="let text of note.noteArr">
+                    <div class="textBox" *ngIf="note.noteArr.indexOf(text)">
+                        <h3>Next Note:</h3>
+                        <p>{{text}}</p>
+                        <button class="btn" (click)="deleteArr(note.noteArr, note.noteArr.indexOf(text))">Delete</button>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="controllBox">
+                <input type="text" class='inputList' #addText>
+                <button class="btn" (click)="addNoteDoubleNotes(note, addText.value)">Add</button>
+                <button class="btn" (click)="deleteArr(notes, notes.indexOf(note))">Delete</button>
+                <button class="btn" [class.hidden]="!(notes.indexOf(note))" (click)="upArr(note)">Up</button>
+                <button class="btn" [class.hidden]="notes.indexOf(note) == notes.length - 1" (click)="downArr(note)">Down</button>
+            </div>
+        </li>
+        
+        <div class="container">
+            <input type="text" class="inputList big" #addText>
+            <div class="btn big" (click)="createNote(addText.value)">Add</div>
+        </div>
+    </ul>
+</body>
+</html>
